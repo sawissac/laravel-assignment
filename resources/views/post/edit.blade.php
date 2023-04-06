@@ -19,12 +19,12 @@
         </div>
         <label for="active">
             <input type="radio" name="status" value="active" id="active"
-                {{ (bool) $data->is_active ? 'checked' : '' }}>
+                {{ $data->is_active ? 'checked' : '' }}>
             active
         </label>
         <label for="suspended">
             <input type="radio" name="status" value="suspended" id="suspended"
-                {{ !(bool) $data->is_active ? 'checked' : '' }}>
+                {{ !$data->is_active ? 'checked' : '' }}>
             suspended
         </label>
         <br />

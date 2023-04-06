@@ -28,7 +28,13 @@
                     <td>{{ $val->title }}</td>
                     <td>{{ $val->description }}</td>
 
-                    @if ((bool) $val->is_active)
+                    {{--? this --}}
+                    {{-- <td class="{{$val->is_active ? "text-success" : "text-danger"}}">
+                        {{$val->is_active ? "active" : "suspended"}}
+                    </td> --}}
+
+                    {{--? or this what should I choose or is there another way--}}
+                    @if ($val->is_active)
                         <td class="text-success">active</td>
                     @else
                         <td class="text-danger">suspended</td>
@@ -40,7 +46,7 @@
                     <td>
                         <a class="btn btn-primary" href="{{ route('post.edit', $val->id) }}">Edit</a>
                     </td>
-                    
+
                     <td>
                         <form action="{{ route('post.destroy', $val->id) }}" method="POST">
                             @csrf

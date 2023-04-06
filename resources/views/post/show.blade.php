@@ -18,12 +18,12 @@
                 <td>{{ $result->title }}</td>
                 <td>{{ $result->description }}</td>
 
-                @if ((bool) $result->is_active)
+                @if ($result->is_active)
                     <td class="text-success">active</td>
                 @else
                     <td class="text-danger">subspended</td>
                 @endif
-                
+
             </tr>
         </tbody>
     </table>
