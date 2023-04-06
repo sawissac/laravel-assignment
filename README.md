@@ -9,7 +9,7 @@
 
 `🙇🏻‍♂️ dev note`
 
-it is ok to use `if operator` & `ternary operator`? For me `if` is very clean and easy to read, `ternary` is short but it's quite messy. Is there any other way to shorten the code? I have leave a link [here](https://github.com/sawissac/laravel-assignment/blob/main/resources/views/post/index.blade.php). 
+it is ok to use `if operator` & `ternary operator`? For me `if` is very clean and easy to read, `ternary` is short but it's quite messy. Is there any other way to shorten the code? I have leave a link [here](https://github.com/sawissac/laravel-assignment/blob/main/resources/views/post/index.blade.php#L31-L41). 
 
 The question is on line number `31` & `36`.
 
