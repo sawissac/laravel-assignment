@@ -28,12 +28,12 @@
                     <td>{{ $val->title }}</td>
                     <td>{{ $val->description }}</td>
 
-                    {{--? this --}}
+                    {{-- ? this --}}
                     {{-- <td class="{{$val->is_active ? "text-success" : "text-danger"}}">
                         {{$val->is_active ? "active" : "suspended"}}
                     </td> --}}
 
-                    {{--? or this what should I choose or is there another way--}}
+                    {{-- ? or this what should I choose or is there another way --}}
                     @if ($val->is_active)
                         <td class="text-success">active</td>
                     @else
@@ -51,7 +51,8 @@
                         <form action="{{ route('post.destroy', $val->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger" type="submit">Delete</button>
+                            <button class="btn btn-danger" type="submit"
+                                onclick="return confirm('Are u sure want to delete')">Delete</button>
                         </form>
                     </td>
                 </tr>
