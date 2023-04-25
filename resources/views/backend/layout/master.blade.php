@@ -238,45 +238,46 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('permission.index') }}"
+                                    class="nav-link {{ request()->path() === 'admin/permission' ? 'active' : '' }}">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <p>
+                                        Permission
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('role.index') }}"
+                                    class="nav-link {{ request()->path() === 'admin/role' ? 'active' : '' }}">
+                                    <i class="fa-solid fa-user"></i>
+                                    <p>
+                                        Role
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('adminList.index') }}"
+                                    class="nav-link {{ request()->path() === 'admin/adminList' ? 'active' : '' }}">
+                                    <i class="fa-solid fa-users"></i>
+                                    <p>
+                                        Admin List
+                                    </p>
+                                </a>
+                            </li>
                         @endcan
                         @can('postList')
                             <li class="nav-item">
                                 <a href="{{ route('post.index') }}"
                                     class="nav-link {{ request()->path() === 'admin/post' ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-th"></i>
+                                    <i class="fa-solid fa-signs-post"></i>
                                     <p>
                                         Post
                                     </p>
                                 </a>
                             </li>
                         @endcan
-                        <li class="nav-item">
-                            <a href="{{ route('permission.index') }}"
-                                class="nav-link {{ request()->path() === 'admin/permission' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Permission
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('role.index') }}"
-                                class="nav-link {{ request()->path() === 'admin/role' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Role
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('adminList.index') }}"
-                                class="nav-link {{ request()->path() === 'admin/adminList' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Admin List
-                                </p>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
