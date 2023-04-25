@@ -1,105 +1,65 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\BlogRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('permission:postList',['only'=>'index']);
+        $this->middleware('permission:postCreate',['only'=>'create']);
+        $this->middleware('permission:postShow',['only'=>'show']);
+        $this->middleware('permission:postEdit',['only'=>'edit']);
+        $this->middleware('permission:postUpdate',['only'=>'update']);
+        $this->middleware('permission:postDestroy',['only'=>'destroy']);
+    }
     public function index()
     {
         $data = Post::all();
-        return view('post.index', compact('data'));
+        return view('backend.post.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('post.create');
+        return view('backend.post.create');
+    }
+    public function store(BlogRequest $request, Post $post)
+    {
+        $data = $request->validated();
+        $post->create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'is_active' => $data['status'] === 'active' ? true : false,
+        ]);
+        return redirect()->route('post.index');
+    }
+    public function show(Post $post)
+    {
+        return view('backend.post.show', compact('post'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit(Post $post)
     {
+        return view('backend.post.edit', compact('post'));
+    }
 
-        Post::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'is_active' => $request->status === 'active' ? true : false,
+    public function update(BlogRequest $request, Post $post)
+    {
+        $data = $request->validated();
+        $post->update([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'is_active' => $data['status'] === 'active' ? true : false
         ]);
-
         return redirect()->route('post.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function destroy(Post $post)
     {
-        $result = Post::where('id', $id)->first();
-        return view('post.show', compact('result'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $data = Post::where('id', $id)->first();
-        return view('post.edit', compact('data'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-
-        $data = Post::where('id', $id)->first();
-        $data->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'is_active'=> $request->status === 'active' ? true : false
-        ]);
-
-        return redirect()->route('post.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $data = Post::where('id', $id)->first();
-        $data->delete();
+        $post->delete();
         return redirect()->route('post.index');
     }
 }
