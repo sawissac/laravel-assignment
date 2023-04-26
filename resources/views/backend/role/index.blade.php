@@ -35,13 +35,15 @@
                                             <td>{{ $val->id }}</td>
                                             <td>{{ $val->name }}</td>
                                             <td>
-                                                <a class="btn btn-primary" href="{{ route('role.edit', $val->id) }}">Edit</a>
+                                                <a class="btn btn-primary"
+                                                    href="{{ route('role.edit', $val->id) }}">Edit</a>
                                             </td>
                                             <td>
                                                 <form action="{{ route('role.destroy', $val->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger" type="submit"
+                                                        {{ $val->name !== 'NormalUser' ? null : 'disabled' }}
                                                         onclick="return confirm('Are u sure want to delete')">Delete</button>
                                                 </form>
                                             </td>

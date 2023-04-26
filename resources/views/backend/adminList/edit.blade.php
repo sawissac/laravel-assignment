@@ -33,9 +33,13 @@
                                 <label for="role">Role</label>
                                 <select id="role" name="role" class="form-control">
                                     @foreach ($role->all() as $rl)
-                                        <option
-                                        value={{ $rl->id }}
-                                            {{ $rl->id === $adminList->roles->first()->id ? 'selected' : '' }}>
+                                        <option value={{ $rl->id }}
+                                            {{
+                                                (empty($adminList->roles->first()->id) ? null
+                                                : $rl->id === $adminList->roles->first()->id) ? 'selected'
+                                                : null
+                                            }}
+                                            >
                                             {{ $rl->name }}</option>
                                     @endforeach
                                 </select>

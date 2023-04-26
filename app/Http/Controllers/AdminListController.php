@@ -42,7 +42,7 @@ class AdminListController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required',
             'role' => 'required'
@@ -114,9 +114,9 @@ class AdminListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        // $role->delete();
+        User::find($id)->delete();
         return redirect()->route('adminList.index');
     }
 }

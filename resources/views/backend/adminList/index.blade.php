@@ -35,7 +35,7 @@
                                         <tr>
                                             <td>{{ $val->id }}</td>
                                             <td>{{ $val->name }}</td>
-                                            <td>{{ $val->roles->first()->name }}</td>
+                                            <td>{{ !empty($val->roles->first()->name)? $val->roles->first()->name : 'NULL'}}</td>
                                             <td>
                                                 <a class="btn btn-primary"
                                                     href="{{ route('adminList.edit', $val->id) }}">Edit</a>

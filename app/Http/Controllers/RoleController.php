@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PermissionRequest;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -98,7 +99,20 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+
+        // $users = User::with('roles:id,name')->get();
+
+        // foreach ($users as $user) {
+        //     foreach ($user->roles as $rl) {
+        //         $role_id = $rl->id;
+        //         if ($role_id === $role->id) {
+        //             $user->syncRoles(['NormalUser']);
+        //         }
+        //     }
+        // }
+
         $role->delete();
+
         return redirect()->route('role.index');
     }
 }
