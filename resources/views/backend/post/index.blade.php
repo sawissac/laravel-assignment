@@ -20,6 +20,8 @@
                                         <th scope="col">#</th>
                                         <th scope="col">title</th>
                                         <th scope="col">Description</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Author</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">View</th>
                                         <th scope="col">Edit</th>
@@ -38,7 +40,12 @@
                                             <td>{{ $val->id }}</td>
                                             <td>{{ $val->title }}</td>
                                             <td>{{ substr($val->description, 0, 50) }} ...</td>
-
+                                            <td>
+                                                <img src="{{asset("storage/".$val->image)}}" alt="image" width="100" >
+                                            </td>
+                                            <td>
+                                                {{$val->author->name}}
+                                            </td>
                                             {{-- ? this --}}
                                             {{-- <td class="{{$val->is_active ? "text-success" : "text-danger"}}">
                                                 {{$val->is_active ? "active" : "suspended"}}

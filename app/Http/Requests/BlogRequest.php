@@ -26,6 +26,8 @@ class BlogRequest extends FormRequest
         return [
             'title'=>'required',
             'description'=>'required',
+            'image'=>'nullable|mimes:jpeg,png,jpg',
+            'author_id'=>'required|integer',
             'status'=>'required'
         ];
     }

@@ -20,6 +20,7 @@ class PostFactory extends Factory
         return [
             "title"=>$this->faker->name(),
             'description'=>$this->faker->paragraph(2),
+            'image'=> '',
             'is_active'=> true
         ];
     }

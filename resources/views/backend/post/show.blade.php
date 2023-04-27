@@ -21,6 +21,8 @@
                                         <th scope="col">#</th>
                                         <th scope="col">title</th>
                                         <th scope="col">description</th>
+                                        <th scope="col">image</th>
+                                        <th scope="col">Author</th>
                                         <th scope="col">status</th>
                                     </tr>
                                 </thead>
@@ -29,7 +31,10 @@
                                         <td>{{ $post->id }}</td>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->description }}</td>
-
+                                        <td>
+                                            <img src="{{asset("storage/".$post->image)}}" alt="image" width="100" >
+                                        </td>
+                                        <td>{{ $post->author->name }}</td>
                                         @if ($post->is_active)
                                             <td class="text-success">active</td>
                                         @else

@@ -11,7 +11,7 @@
                                 Edit List
                             </h1>
                         </div>
-                        <form action="{{ route('post.update', $post->id) }}" method="POST">
+                        <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
                                 @csrf
                                 @method('PATCH')
@@ -43,6 +43,19 @@
                                         suspended
                                     </label>
                                 </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Upload</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input name="image" type="file" class="custom-file-input" value="{{$post->image}}"
+                                            id="inputGroupFile01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('image'))
+                                    <div class="text-danger">{{ $errors->first('image') }}</div>
+                                @endif
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Update</button>

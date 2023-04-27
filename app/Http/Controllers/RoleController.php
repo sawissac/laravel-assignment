@@ -41,9 +41,7 @@ class RoleController extends Controller
     public function store(PermissionRequest $request)
     {
         $data = $request->validated();
-        $role = Role::create([
-            'name' => $data['name']
-        ]);
+        $role = Role::create($data);
         $role->givePermissionTo($data['role']);
         return redirect()->route('role.index');
     }

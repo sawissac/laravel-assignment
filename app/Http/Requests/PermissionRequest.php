@@ -24,7 +24,7 @@ class PermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique,column,except,id',
             'role' => 'required'
         ];
     }
