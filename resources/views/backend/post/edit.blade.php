@@ -43,15 +43,34 @@
                                         suspended
                                     </label>
                                 </div>
+                                <img id="imageViewer" src="{{ asset('storage/' . $post->image) }}" width="100" />
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Upload</span>
                                     </div>
                                     <div class="custom-file">
-                                        <input name="image" type="file" class="custom-file-input" value="{{$post->image}}"
-                                            id="inputGroupFile01">
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        <input name="image" type="file" class="custom-file-input"
+                                            id="inputGroupFile01" title="{{ $post->image }}">
+                                        <label class="custom-file-label" for="inputGroupFile01"><span
+                                                id="label-name">{{ $post->image }}</span></label>
                                     </div>
+                                    <script>
+                                        const input = document.getElementById("inputGroupFile01");
+                                        const reader = new FileReader();
+                                        const img = document.getElementById("imageViewer");
+                                        const labelName = document.getElementById("label-name");
+
+                                        input.addEventListener("change", function(event) {
+                                            const file = event.target.files[0];
+                                            img.src = "";
+                                            labelName.innerText = file.name;
+                                            reader.readAsDataURL(file);
+                                        });
+
+                                        reader.onload = function() {
+                                            img.src = reader.result;
+                                        };
+                                    </script>
                                 </div>
                                 @if ($errors->has('image'))
                                     <div class="text-danger">{{ $errors->first('image') }}</div>

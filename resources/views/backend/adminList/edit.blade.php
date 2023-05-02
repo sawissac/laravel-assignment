@@ -40,7 +40,8 @@
                                                 : null
                                             }}
                                             >
-                                            {{ $rl->name }}</option>
+                                            {{ $rl->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

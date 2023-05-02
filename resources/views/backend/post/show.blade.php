@@ -28,14 +28,14 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{{ $post->id }}</td>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->description }}</td>
+                                        <td>{{ $data->id }}</td>
+                                        <td>{{ $data->title }}</td>
+                                        <td>{{ $data->description }}</td>
                                         <td>
-                                            <img src="{{asset("storage/".$post->image)}}" alt="image" width="100" >
+                                            <img src="{{asset("storage/".$data->image)}}" alt="image" width="100" >
                                         </td>
-                                        <td>{{ $post->author->name }}</td>
-                                        @if ($post->is_active)
+                                        <td>{{ $data->author->name }}</td>
+                                        @if ($data->is_active)
                                             <td class="text-success">active</td>
                                         @else
                                             <td class="text-danger">subspended</td>

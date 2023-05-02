@@ -41,17 +41,15 @@
                                             <td>{{ $val->title }}</td>
                                             <td>{{ substr($val->description, 0, 50) }} ...</td>
                                             <td>
-                                                <img src="{{asset("storage/".$val->image)}}" alt="image" width="100" >
+                                                @if($val->image)
+                                                    <img src="{{asset("storage/".$val->image)}}" alt="image" width="100" >
+                                                @elseif (!$val->image)
+                                                    No image Uploaded
+                                                @endif
                                             </td>
                                             <td>
                                                 {{$val->author->name}}
                                             </td>
-                                            {{-- ? this --}}
-                                            {{-- <td class="{{$val->is_active ? "text-success" : "text-danger"}}">
-                                                {{$val->is_active ? "active" : "suspended"}}
-                                            </td> --}}
-
-                                            {{-- ? or this what should I choose or is there another way --}}
                                             @if ($val->is_active)
                                                 <td class="text-success">active</td>
                                             @else

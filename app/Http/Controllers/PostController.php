@@ -5,22 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BlogRequest;
 use App\Models\Author;
 use App\Models\Post;
+use App\Repository\Post\PostRepositoryInterface;
+use App\Services\Post\PostServiceInterface;
 
 class PostController extends Controller
 {
 
-    public function __construct()
+    private $postRepo;
+    private $postService;
+
+    public function __construct(PostRepositoryInterface $postRepo, PostServiceInterface $postService)
     {
+        $this->postRepo = $postRepo;
+        $this->postService = $postService;
         $this->middleware('permission:postList', ['only' => 'index']);
         $this->middleware('permission:postCreate', ['only' => 'create']);
         $this->middleware('permission:postShow', ['only' => 'show']);
         $this->middleware('permission:postEdit', ['only' => 'edit']);
         $this->middleware('permission:postUpdate', ['only' => 'update']);
-        $this->middleware('permission:postDestroy', ['only' => 'destroy']);
+        $this->middleware('permission:postDelete', ['only' => 'destroy']);
     }
+
     public function index()
     {
-        $data = Post::with('author')->get();
+        $data = $this->postRepo->get();
         return view('backend.post.index', compact('data'));
     }
 
@@ -29,30 +37,17 @@ class PostController extends Controller
         $data = Author::all();
         return view('backend.post.create', compact('data'));
     }
+
     public function store(BlogRequest $request, Post $post)
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('storage'), $imageName);
-        }
-
-        $data = array_merge($data, ['image' => $imageName]);
-
-        $post->create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'image' => $data['image'],
-            'author_id' => $data['author_id'],
-            'is_active' => $data['status'] === 'active' ? true : false,
-        ]);
-
+        $this->postService->store($request->validated());
         return redirect()->route('post.index');
     }
-    public function show(Post $post)
+
+    public function show($id)
     {
-        return view('backend.post.show', compact('post'));
+        $data = $this->postRepo->show($id);
+        return view('backend.post.show', compact('data'));
     }
 
     public function edit(Post $post)
@@ -63,22 +58,7 @@ class PostController extends Controller
 
     public function update(BlogRequest $request, Post $post)
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-        }
-
-        $data = array_merge($data, ['image' => $imageName]);
-
-        $post->update([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'image' => $data['image'],
-            'is_active' => $data['status'] === 'active' ? true : false,
-        ]);
-
+        $this->postService->update($request->validated(), $post);
         return redirect()->route('post.index');
     }
 
